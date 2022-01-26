@@ -1,4 +1,12 @@
 import React from 'react';
+
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
 import { Link } from 'react-router-dom';
 
 function GameCard( {content: {id, title, thumbnail, short_description, genre}} ){
@@ -7,10 +15,26 @@ function GameCard( {content: {id, title, thumbnail, short_description, genre}} )
 
     return (
         <Link to={link}>
-            <img src={thumbnail} alt={`${title} logo`} />
-            <h2>{title}</h2>
-            <p>{short_description}</p>
-            <p>{genre}</p>
+            
+            <Card sx={{ maxWidth: 345 }}>
+                <CardMedia
+                    component="img"
+                    height="140"
+                    image={thumbnail}  
+                    alt={`${title} logo`}
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                    {title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                    {short_description}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                    {genre}
+                    </Typography>
+                </CardContent>
+            </Card>
         </Link>
     );
 };
