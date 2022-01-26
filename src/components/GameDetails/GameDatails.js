@@ -72,9 +72,9 @@ function GameDetails() {
             </Box>
 
             <Box>
-              <ButtonGroup variant="contained" aria-label="outlined primary button group">
-                <Button><a href={game.game_url} target="_blank">Website</a></Button>
-               <Button><Link to="/">Back</Link></Button>
+              <ButtonGroup style={{marginBottom: 30}} variant="contained" aria-label="outlined primary button group">
+                <Button><a href={game.game_url} style={{textDecoration: "none"}} target="_blank">Website</a></Button>
+               <Button><Link to="/" style={{textDecoration: "none"}}>Back</Link></Button>
               </ButtonGroup>
             </Box>
 
