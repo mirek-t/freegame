@@ -4,22 +4,22 @@ import { API_HOST, API_KEY } from "./constants";
 
 const localCache = {};
 
-const useFetch = ({platform, genre, tag, sortBy}) => {
+const useFetch = ({platform, genre, tags, sortBy}) => {
     const [games, setGames] = useState([]);
     const [error, setError] = useState("");
     
     useEffect(() => {
-        if(!localCache[`${platform}${genre}${tag}${sortBy}`]){
-            getData(platform, genre, tag, sortBy)
+        if(!localCache[`${platform}${genre}${tags}${sortBy}`]){
+            getData(platform, genre, tags, sortBy)
         } else {
-            setGames(localCache[`${platform}${genre}${tag}${sortBy}`])
+            setGames(localCache[`${platform}${genre}${tags}${sortBy}`])
         }
         
 
 
-    }, [platform, genre, tag, sortBy])
+    }, [platform, genre, tags, sortBy])
 
-    const getData = (platform, genre, tag, sortBy) => {
+    const getData = (platform, genre, tags, sortBy) => {
         axios.get("/games", {
             baseURL: `https://${API_HOST}/api`,
             headers: {
@@ -27,14 +27,21 @@ const useFetch = ({platform, genre, tag, sortBy}) => {
                 "x-rapidapi-host": API_HOST
             },
             params: {
-                platform, category: genre, tag, "sort-by": sortBy
+                platform, category: genre, tags, "sort-by": sortBy
             }
         })
-        .then(response => {
-            localCache[`${platform}${genre}${tag}${sortBy}`] = response.data;
-            setGames(localCache[`${platform}${genre}${tag}${sortBy}`])
+        .then(response => {           
+            if(response.data.status !== 0){
+                localCache[`${platform}${genre}${tags}${sortBy}`] = response.data;
+                setGames(localCache[`${platform}${genre}${tags}${sortBy}`])
+            } else {
+                setGames([])
+            }
         })
-        .catch(error => setError(error));
+        .catch(error => {
+            setError(error);
+            setGames([])
+        });
     }
 
     return {

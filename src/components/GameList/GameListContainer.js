@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import GameList from './GameList';
 
@@ -12,15 +12,6 @@ function GameListContainer(){
 
     const {games, error} = useFetch(filter);
 
-    const onFilterChange = useCallback((e) => {
-        e.preventDefault();
-
-        // setFilter({...filter, [e.target.name]: e.target.value})
-        setFilter(current => ({
-            ...current, [e.target.name]: e.target.value
-        }))
-    }, []);
-
-    return <GameList games={games} onFilterChange={onFilterChange}/>;
+    return <GameList games={games} setFilter={setFilter}/>;
 };
 export default GameListContainer;

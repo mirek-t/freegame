@@ -14,9 +14,9 @@ function GameCard( {content: {id, title, thumbnail, short_description, genre}} )
     const link = `/games/${id}`
 
     return (
-        <Link to={link}>
+        <Link to={link} style={{textDecoration: "none", width: "48%", margin: "1%"}}>
             
-            <Card sx={{ maxWidth: 345 }}>
+            <Card sx={{ width: "100%", minHeight: "100%" }}>
                 <CardMedia
                     component="img"
                     height="140"

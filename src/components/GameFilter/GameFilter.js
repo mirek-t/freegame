@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -6,19 +7,46 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
+
 import {GENRES, PLATFORMS, SORT_BY, TAGS} from "./constants";
 
-function GameFilter({onFilterChange}) {
+function GameFilter({setFilter}) {
+
+    const [platform, setPlatform] = useState(PLATFORMS[0].value)
+    const [genre, setGenre] = useState(GENRES[0].value)
+    const [tags, setTags] = useState(TAGS[0].value)
+    const [sortBy, setSortBy] = useState(SORT_BY[0].value)
+
+    const handlePlatform =(e) => {
+        setPlatform(e.target.value)
+        setFilter(previous => ({...previous, [e.target.name]: e.target.value}))
+    }
+
+    const handleGenre =(e) => {
+        setGenre(e.target.value)
+        setFilter(previous => ({...previous, [e.target.name]: e.target.value}))
+    }
+    const handleTags =(e) => {
+
+        setTags(e.target.value)
+        setFilter(previous => ({...previous, [e.target.name]: e.target.value}))
+    }
+    const handleSortBy =(e) => {
+        setSortBy(e.target.value)
+        setFilter(previous => ({...previous, [e.target.name]: e.target.value}))
+    }
+
     return (
         <Box sx={{minWidth: 120, marginTop: 5}}>
+
             <FormControl>
                 <InputLabel id="platform">Platform:</InputLabel>
                 <Select
                     labelId="platform"
                     id="demo-simple-select"
-                    value={PLATFORMS[0].value}
+                    value={platform}
                     label="platform"
-                    onChange={onFilterChange}
+                    onChange={handlePlatform}
                     name="platform"
                 >
                     {PLATFORMS.map(platform => (
@@ -33,9 +61,9 @@ function GameFilter({onFilterChange}) {
                 <Select
                     labelId="genre"
                     id="demo-simple-select"
-                    value={GENRES[0].value}
+                    value={genre}
                     label="genre"
-                    onChange={onFilterChange}
+                    onChange={handleGenre}
                     name="genre"
                 >
                     {GENRES.map(genre => (
@@ -50,9 +78,9 @@ function GameFilter({onFilterChange}) {
                 <Select
                     labelId="tags"
                     id="demo-simple-select"
-                    value={TAGS[0].value}
+                    value={tags}
                     label="tags"
-                    onChange={onFilterChange}
+                    onChange={handleTags}
                     name="tags"
                 >
                     {TAGS.map(tag => (
@@ -68,9 +96,9 @@ function GameFilter({onFilterChange}) {
                 <Select
                     labelId="sortBy"
                     id="demo-simple-select"
-                    value={SORT_BY[0].value}
+                    value={sortBy}
                     label="sortBy"
-                    onChange={onFilterChange}
+                    onChange={handleSortBy}
                     name="sortBy"
                 >
                     {SORT_BY.map(sortBy => (
@@ -80,6 +108,7 @@ function GameFilter({onFilterChange}) {
                     ))}
                 </Select>
             </FormControl>
+
         </Box>
     );
 }
