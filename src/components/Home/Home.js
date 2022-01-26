@@ -1,9 +1,8 @@
 import React from 'react';
+import GameListContainer from '../GameList/GameListContainer';
 
-function Home(props){
- return (
-   <div>Home</div>
- );
+function Home(){
+ return <GameListContainer/>;
 };
 
 export default Home;
